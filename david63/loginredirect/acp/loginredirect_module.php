@@ -80,7 +80,7 @@ class loginredirect_module
 			$redirect_welcome_topic_id = $this->request->variable('redirect_welcome_topic_id', '');
 			$this->config->set('redirect_welcome_topic_id', $redirect_welcome_topic_id);
 
-			$phpbb_log->add('admin', 'LOG_LOGIN_REDIRECT');
+			$phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_LOGIN_REDIRECT');
 			trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 		}
 
