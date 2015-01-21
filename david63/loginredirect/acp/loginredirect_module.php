@@ -27,12 +27,13 @@ class loginredirect_module
 
 	function main($id, $mode)
 	{
-		global $user, $template, $request, $config;
+		global $user, $template, $request, $config, $phpbb_log;
 
-		$this->config	= $config;
-		$this->request	= $request;
-		$this->template	= $template;
-		$this->user		= $user;
+		$this->config		= $config;
+		$this->request		= $request;
+		$this->template		= $template;
+		$this->user			= $user;
+		$this->phpbb_log	= $phpbb_log;
 
 		$this->user->add_lang_ext('david63/loginredirect', 'loginredirect_common');
 		$this->tpl_name		= 'loginredirect_manage';
@@ -47,40 +48,19 @@ class loginredirect_module
 				trigger_error($this->user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
-			$redirect_announce = $this->request->variable('redirect_announce', 0);
-			$this->config->set('redirect_announce', $redirect_announce);
+			$this->config->set('redirect_announce', $this->request->variable('redirect_announce', 0));
+			$this->config->set('redirect_announce_refresh', $this->request->variable('redirect_announce_refresh', 0));
+			$this->config->set('redirect_enabled', $this->request->variable('redirect_enabled', 0));
+			$this->config->set('redirect_group', $this->request->variable('redirect_group', 0));
+			$this->config->set('redirect_group_all', $this->request->variable('redirect_group_all', 0));
+			$this->config->set('redirect_group_id', $this->request->variable('redirect_group_id', 0));
+			$this->config->set('redirect_group_refresh', $this->request->variable('redirect_group_refresh', 0));
+			$this->config->set('redirect_group_topic_id', $this->request->variable('redirect_group_topic_id', 0));
+			$this->config->set('redirect_welcome', $this->request->variable('redirect_welcome', 0));
+			$this->config->set('redirect_welcome_refresh', $this->request->variable('redirect_welcome_refresh', 0));
+			$this->config->set('redirect_welcome_topic_id', $this->request->variable('redirect_welcome_topic_id', ''));
 
-			$redirect_announce_refresh = $this->request->variable('redirect_announce_refresh', 0);
-			$this->config->set('redirect_announce_refresh', $redirect_announce_refresh);
-
-			$redirect_enabled = $this->request->variable('redirect_enabled', 0);
-			$this->config->set('redirect_enabled', $redirect_enabled);
-
-			$redirect_group = $this->request->variable('redirect_group', 0);
-			$this->config->set('redirect_group', $redirect_group);
-
-			$redirect_group_all = $this->request->variable('redirect_group_all', 0);
-			$this->config->set('redirect_group_all', $redirect_group_all);
-
-			$redirect_group_id = $this->request->variable('redirect_group_id', 0);
-			$this->config->set('redirect_group_id', $redirect_group_id);
-
-			$redirect_group_refresh = $this->request->variable('redirect_group_refresh', 0);
-			$this->config->set('redirect_group_refresh', $redirect_group_refresh);
-
-			$redirect_group_topic_id = $this->request->variable('redirect_group_topic_id', 0);
-			$this->config->set('redirect_group_topic_id', $redirect_group_topic_id);
-
-			$redirect_welcome = $this->request->variable('redirect_welcome', 0);
-			$this->config->set('redirect_welcome', $redirect_welcome);
-
-			$redirect_welcome_refresh = $this->request->variable('redirect_welcome_refresh', 0);
-			$this->config->set('redirect_welcome_refresh', $redirect_welcome_refresh);
-
-			$redirect_welcome_topic_id = $this->request->variable('redirect_welcome_topic_id', '');
-			$this->config->set('redirect_welcome_topic_id', $redirect_welcome_topic_id);
-
-			$phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_LOGIN_REDIRECT');
+			$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_LOGIN_REDIRECT');
 			trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 		}
 
@@ -103,5 +83,3 @@ class loginredirect_module
 
 	}
 }
-
-?>
