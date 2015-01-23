@@ -38,5 +38,3 @@ $lang = array_merge($lang, array(
 	'REDIRECT'				=> 'Redirección de inicio',
 	'REDIRECT_MANAGE'		=> 'Gestionar redirecciones',
 ));
-
-?>

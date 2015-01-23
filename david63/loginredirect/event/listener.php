@@ -125,7 +125,7 @@ class listener implements EventSubscriberInterface
 				$this->db->sql_freeresult($result);
 
 				// Check that the topic exists
-				if ($this->config['redirect_welcome_topic_id'] == $row['topic_id'])
+				if ($row && $this->config['redirect_welcome_topic_id'] == $row['topic_id'])
 				{
 					$redirect	= "{$this->root_path}viewtopic.$this->phpEx?t=" . $row['topic_id'];
 					$message	= $this->user->lang['REDIRECT_LOGIN_WELCOME_TOPIC'];
@@ -141,10 +141,9 @@ class listener implements EventSubscriberInterface
 					$sql = 'SELECT topic_id, topic_time
 						FROM ' . TOPICS_TABLE . '
 							WHERE topic_type = ' . POST_ANNOUNCE . '
-							ORDER BY topic_time DESC
-							LIMIT 1';
+							ORDER BY topic_time DESC';
 
-					$result	= $this->db->sql_query($sql);
+					$result	= $this->db->sql_query_limit($sql, 1);
 					$row	= $this->db->sql_fetchrow($result);
 ;
 					$this->db->sql_freeresult($result);
@@ -156,7 +155,7 @@ class listener implements EventSubscriberInterface
 						$message	= $this->user->lang['REDIRECT_LOGIN_ANNOUNCE_TOPIC'];
 						$l_redirect	= $this->user->lang['REDIRECT_REFRESH_ANNOUNCE'];
 						$refresh	= $this->config['redirect_announce_refresh'];
-						// Need to give announcement priority ove a group message
+						// Need to give announcement priority over a group message
 						$announce	= true;
 					}
 				}
@@ -174,8 +173,8 @@ class listener implements EventSubscriberInterface
 						// Is user in the selected group?
 						$sql = 'SELECT group_id
 						FROM ' . USER_GROUP_TABLE . '
-							WHERE group_id = ' . $this->config['redirect_group_id'] . '
-								AND user_id = ' . $this->user->data['user_id'];
+							WHERE group_id = ' . (int)$this->config['redirect_group_id'] . '
+								AND user_id = ' . (int)$this->user->data['user_id'];
 
 						$result	= $this->db->sql_query($sql);
 						$row	= $this->db->sql_fetchrow($result);
@@ -183,7 +182,7 @@ class listener implements EventSubscriberInterface
 						$this->db->sql_freeresult($result);
 
 						// Check that the member is in the group
-						if ($this->config['redirect_group_id'] == $row['group_id'])
+						if ($row && ($this->config['redirect_group_id'] == $row['group_id']))
 						{
 							$proceed = true;
 						}

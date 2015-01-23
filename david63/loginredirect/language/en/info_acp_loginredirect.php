@@ -38,5 +38,3 @@ $lang = array_merge($lang, array(
 	'REDIRECT'				=> 'Login redirect',
 	'REDIRECT_MANAGE'		=> 'Manage redirects',
 ));
-
-?>

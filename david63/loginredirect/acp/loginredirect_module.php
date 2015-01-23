@@ -83,3 +83,5 @@ class loginredirect_module
 
 	}
 }
+
+?>
