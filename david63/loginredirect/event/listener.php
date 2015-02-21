@@ -117,7 +117,7 @@ class listener implements EventSubscriberInterface
 			{
 				$sql = 'SELECT topic_id
 					FROM ' . TOPICS_TABLE . '
-						WHERE topic_id = ' . $this->config['redirect_welcome_topic_id'];
+						WHERE topic_id = ' . (int)$this->config['redirect_welcome_topic_id'];
 
 				$result	= $this->db->sql_query($sql);
 				$row	= $this->db->sql_fetchrow($result);
@@ -192,7 +192,7 @@ class listener implements EventSubscriberInterface
 					{
 						$sql = 'SELECT topic_id, topic_time
 						FROM ' . TOPICS_TABLE . '
-							WHERE topic_id = ' . $this->config['redirect_group_topic_id'];
+							WHERE topic_id = ' . (int)$this->config['redirect_group_topic_id'];
 
 						$result	= $this->db->sql_query($sql);
 						$row	= $this->db->sql_fetchrow($result);
