@@ -126,8 +126,8 @@ class listener implements EventSubscriberInterface
 				$this->db->sql_freeresult($result);
 
 				$redirect	= "{$this->root_path}viewtopic.$this->phpEx?t=" . $row['topic_id'];
-				$message	= $this->user->lang['REDIRECT_LOGIN_WELCOME_TOPIC'];
-				$l_redirect	= $this->user->lang['REDIRECT_REFRESH_WELCOME'];
+				$message	= $this->user->lang('REDIRECT_LOGIN_WELCOME_TOPIC');
+				$l_redirect	= $this->user->lang('REDIRECT_REFRESH_WELCOME');
 				$refresh	= $this->config['redirect_welcome_refresh'];
 			}
 			else if ($this->config['redirect_announce'] || $this->config['redirect_group'])
@@ -186,8 +186,8 @@ class listener implements EventSubscriberInterface
 
 					if ($latest_announce || $select_announce)
 					{
-						$message	= $this->user->lang['REDIRECT_LOGIN_ANNOUNCE_TOPIC'];
-						$l_redirect	= $this->user->lang['REDIRECT_REFRESH_ANNOUNCE'];
+						$message	= $this->user->lang('REDIRECT_LOGIN_ANNOUNCE_TOPIC');
+						$l_redirect	= $this->user->lang('REDIRECT_REFRESH_ANNOUNCE');
 						$refresh	= $this->config['redirect_announce_refresh'];
 					}
 				}
@@ -235,8 +235,8 @@ class listener implements EventSubscriberInterface
 						if ($this->user->data['user_lastvisit'] < $row['topic_time'])
 						{
 							$redirect	= "{$this->root_path}viewtopic.$this->phpEx?t=" . $row['topic_id'];
-							$message	= $this->user->lang['REDIRECT_LOGIN_GROUP_TOPIC'];
-							$l_redirect	= $this->user->lang['REDIRECT_REFRESH_GROUP'];
+							$message	= $this->user->lang('REDIRECT_LOGIN_GROUP_TOPIC');
+							$l_redirect	= $this->user->lang('REDIRECT_REFRESH_GROUP');
 							$refresh	= $this->config['redirect_group_refresh'];
 						}
 					}
