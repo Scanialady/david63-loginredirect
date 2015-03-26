@@ -16,11 +16,6 @@ class version_1_1_0 extends \phpbb\db\migration\migration
 		return array('david63\loginredirect\migrations\version_1_0_0');
 	}
 
-	public function effectively_installed()
-	{
-		return isset($this->config['version_loginredirect']) && version_compare($this->config['version_loginredirect'], '1.1.0', '>=');
-	}
-
 	public function update_data()
 	{
 		return array(
