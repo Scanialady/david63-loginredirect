@@ -111,7 +111,7 @@ class listener implements EventSubscriberInterface
 
 		if ($this->config['redirect_enabled'])
 		{
-			$refresh = $proceed = $latest_announce = $select_announce = false;
+			$refresh = $proceed = $latest_announce = $select_announce = $announce = false;
 
 			// Redirect new member on first log in
 			if ($this->config['redirect_welcome'] && !empty($this->config['redirect_welcome_topic_id']) && $this->user->data['user_lastvisit'] == 0)
@@ -193,7 +193,7 @@ class listener implements EventSubscriberInterface
 				}
 
 				// Redirect to group message if already been to announcement
-				if ($this->config['redirect_group'] && !$announce)
+				if ($this->config['redirect_group'] && (!$latest_announce && !$select_announce))
 				{
 					if ($this->config['redirect_group_all'])
 					{
