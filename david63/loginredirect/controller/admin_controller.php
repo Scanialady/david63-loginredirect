@@ -11,6 +11,8 @@ namespace david63\loginredirect\controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use david63\loginredirect\ext;
+
 /**
 * Admin controller
 */
@@ -31,8 +33,8 @@ class admin_controller implements admin_interface
 	/** @var \phpbb\user */
 	protected $user;
 
-	/** @var ContainerInterface */
-	protected $container;
+	/** @var \phpbb\log\log */
+	protected $log;
 
 	/** @var string Custom form action */
 	protected $u_action;
@@ -45,19 +47,19 @@ class admin_controller implements admin_interface
 	* @param \phpbb\db\driver\driver_interface	$db
 	* @param \phpbb\template\template			$template	Template object
 	* @param \phpbb\user						$user		User object
-	* @param ContainerInterface					$container	Service container interface
+	* @param \phpbb\log\log						$log
 	*
 	* @return \phpbb\boardrules\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, ContainerInterface $container)
+	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log)
 	{
-		$this->config		= $config;
-		$this->request		= $request;
-		$this->db			= $db;
-		$this->template		= $template;
-		$this->user			= $user;
-		$this->container	= $container;
+		$this->config	= $config;
+		$this->request	= $request;
+		$this->db		= $db;
+		$this->template	= $template;
+		$this->user		= $user;
+		$this->log		= $log;
 	}
 
 	/**
@@ -91,8 +93,7 @@ class admin_controller implements admin_interface
 			$this->set_options();
 
 			// Add option settings change action to the admin log
-			$phpbb_log = $this->container->get('log');
-			$phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_LOGIN_REDIRECT');
+			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_LOGIN_REDIRECT');
 
 			// Option settings have been updated and logged
 			// Confirm this to the user and provide link back to previous page
@@ -101,12 +102,15 @@ class admin_controller implements admin_interface
 
 		// Set output vars for display in the template
 		$this->template->assign_vars(array(
+			'LOGIN_REDIRECT_VERSION'		=> ext::LOGIN_REDIRECT_VERSION,
+			'REDIRECT_ALWAYS'				=> isset($this->config['redirect_always']) ? $this->config['redirect_always'] : '',
 			'REDIRECT_ANNOUNCE'				=> isset($this->config['redirect_announce']) ? $this->config['redirect_announce'] : '',
 			'REDIRECT_ANNOUNCE_PRIORITY'	=> isset($this->config['redirect_announce_priority']) ? $this->config['redirect_announce_priority'] : '',
 			'REDIRECT_ANNOUNCE_REFRESH'		=> isset($this->config['redirect_announce_refresh']) ? $this->config['redirect_announce_refresh'] : '',
 			'REDIRECT_ANNOUNCE_TOPIC_ID'	=> isset($this->config['redirect_announce_topic_id']) ? $this->config['redirect_announce_topic_id'] : '',
 			'REDIRECT_ANY_ANNOUNCE'			=> isset($this->config['redirect_any_announce']) ? $this->config['redirect_any_announce'] : '',
 			'REDIRECT_ENABLED'				=> isset($this->config['redirect_enabled']) ? $this->config['redirect_enabled'] : '',
+			'REDIRECT_GLOBAL'				=> isset($this->config['redirect_global']) ? $this->config['redirect_global'] : '',
 			'REDIRECT_GROUP'				=> isset($this->config['redirect_group']) ? $this->config['redirect_group'] : '',
 			'REDIRECT_GROUP_ALL'			=> isset($this->config['redirect_group_all']) ? $this->config['redirect_group_all'] : '',
 			'REDIRECT_GROUP_REFRESH'		=> isset($this->config['redirect_group_refresh']) ? $this->config['redirect_group_refresh'] : '',
@@ -129,12 +133,14 @@ class admin_controller implements admin_interface
 	*/
 	protected function set_options()
 	{
+		$this->config->set('redirect_always', $this->request->variable('redirect_always', 0));
 		$this->config->set('redirect_announce', $this->request->variable('redirect_announce', 0));
 		$this->config->set('redirect_announce_priority', $this->request->variable('redirect_announce_priority', 0));
 		$this->config->set('redirect_announce_refresh', $this->request->variable('redirect_announce_refresh', 0));
 		$this->config->set('redirect_announce_topic_id', $this->request->variable('redirect_announce_topic_id', ''));
 		$this->config->set('redirect_any_announce', $this->request->variable('redirect_any_announce', 0));
 		$this->config->set('redirect_enabled', $this->request->variable('redirect_enabled', 0));
+		$this->config->set('redirect_global', $this->request->variable('redirect_global', 0));
 		$this->config->set('redirect_group', $this->request->variable('redirect_group', 0));
 		$this->config->set('redirect_group_all', $this->request->variable('redirect_group_all', 0));
 		$this->config->set('redirect_group_id', $this->request->variable('redirect_group_id', 0));

@@ -114,7 +114,7 @@ class listener implements EventSubscriberInterface
 			$refresh = $proceed = $latest_announce = $select_announce = $announce = false;
 
 			// Redirect new member on first log in
-			if ($this->config['redirect_welcome'] && !empty($this->config['redirect_welcome_topic_id']) && $this->user->data['user_lastvisit'] == 0)
+			if (($this->config['redirect_welcome'] && !empty($this->config['redirect_welcome_topic_id']) && $this->user->data['user_lastvisit'] == 0) || $this->config['redirect_always'])
 			{
 				$sql = 'SELECT topic_id
 					FROM ' . TOPICS_TABLE . '
@@ -135,11 +135,13 @@ class listener implements EventSubscriberInterface
 				// Redirect to an announcement
 				if ($this->config['redirect_announce'])
 				{
+					$announce_type = ($this->config['redirect_global']) ? 'POST_GLOBAL' : 'POST_ANNOUNCE';
+
 					// Redirect to latest announcement
 					$sql = 'SELECT topic_id, topic_time
-						FROM ' . TOPICS_TABLE . '
-							WHERE topic_type = ' . POST_ANNOUNCE . '
-							ORDER BY topic_time DESC';
+						FROM ' . TOPICS_TABLE . "
+							WHERE topic_type = $announce_type
+							ORDER BY topic_time DESC";
 
 					$result	= $this->db->sql_query_limit($sql, 1);
 					$row	= $this->db->sql_fetchrow($result);

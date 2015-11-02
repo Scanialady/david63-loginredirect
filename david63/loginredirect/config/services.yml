@@ -19,4 +19,4 @@ services:
             - @dbal.conn			
             - @template
             - @user
-            - @service_container
+            - @log

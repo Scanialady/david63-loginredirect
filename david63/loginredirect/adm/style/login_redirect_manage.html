@@ -1,6 +1,7 @@
 <!-- INCLUDE overall_header.html -->
 
 <h1>{L_REDIRECT_LOGIN}</h1>
+{LOGIN_REDIRECT_VERSION}<br /><br />
 <p>{L_REDIRECT_LOGIN_EXPLAIN}</p>
 
 <form id="login_redirect" method="post" action="{U_ACTION}">
@@ -29,6 +30,12 @@
 		</dl>
 
 		<dl>
+  			<dt><label for="redirect_global">{L_REDIRECT_GLOBAL}{L_COLON}</label><br /><span>{L_REDIRECT_GLOBAL_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" class="radio" name="redirect_global" value="1" id="redirect_global"<!-- IF REDIRECT_GLOBAL --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
+				<label><input type="radio" class="radio" name="redirect_global" value="0" <!-- IF not REDIRECT_GLOBAL --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+		</dl>
+
+		<dl>
 			<dt><label for="redirect_announce_topic_id">{L_REDIRECT_ANNOUNCE_TOPIC_ID}{L_COLON}</label><br /><span>{L_REDIRECT_ANNOUNCE_TOPIC_ID_EXPLAIN}</span></dt>
 			<dd><input type="text" id="redirect_announce_topic_id" name="redirect_announce_topic_id" size="8" value="{REDIRECT_ANNOUNCE_TOPIC_ID}" /></dd>
 		</dl>
@@ -52,6 +59,12 @@
   			<dt><label for="redirect_welcome">{L_REDIRECT_WELCOME}{L_COLON}</label><br /><span>{L_REDIRECT_WELCOME_EXPLAIN}</span></dt>
 			<dd><label><input type="radio" class="radio" name="redirect_welcome" value="1" id="redirect_welcome"<!-- IF REDIRECT_WELCOME --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
 				<label><input type="radio" class="radio" name="redirect_welcome" value="0" <!-- IF not REDIRECT_WELCOME --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+		</dl>
+
+		<dl>
+  			<dt><label for="redirect_always">{L_REDIRECT_ALWAYS}{L_COLON}</label><br /><span>{L_REDIRECT_ALWAYS_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" class="radio" name="redirect_always" value="1" id="redirect_always"<!-- IF REDIRECT_ALWAYS --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
+				<label><input type="radio" class="radio" name="redirect_always" value="0" <!-- IF not REDIRECT_ALWAYS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
 		</dl>
 
 		<dl>

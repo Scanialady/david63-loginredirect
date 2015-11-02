@@ -46,6 +46,8 @@ $lang = array_merge($lang, array(
 
 	'REDIRECT'								=> 'Login redirect',
 
+	'REDIRECT_ALWAYS'						=> 'Always redirect',
+	'REDIRECT_ALWAYS_EXPLAIN'				=> 'Always redirect the user to the specified topic.',
 	'REDIRECT_ANNOUNCE'						=> 'Announcement redirect on login',
 	'REDIRECT_ANNOUNCE_EXPLAIN'				=> 'Redirect all users who have not logged in since the latest announcement was posted.',
 	'REDIRECT_ANNOUNCE_MESSAGE_EXPLAIN'		=> 'Display a message to say that the user is being redirected to the latest announcement.',
@@ -58,6 +60,8 @@ $lang = array_merge($lang, array(
 
 	'REDIRECT_ENABLED'						=> 'User login redirect enable',
 
+	'REDIRECT_GLOBAL'						=> 'Redirect to a Global announcemt',
+	'REDIRECT_GLOBAL_EXPLAIN'				=> 'Redirect the user to a Global announcement instead of a “normal” announcement.',
 	'REDIRECT_GROUP'						=> 'Group topic redirect',
 	'REDIRECT_GROUP_ALL'					=> 'All groups members',
 	'REDIRECT_GROUP_ALL_EXPLAIN'			=> 'Setting this to Yes will override any individual group selected below.',
