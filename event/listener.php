@@ -75,7 +75,10 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.user_setup'			=> 'load_language_on_setup',
-			'core.login_box_redirect'	=> 'login_redirect',
+			'core.login_box_redirect'	=> array(
+				'login_redirect',
+				5, // Needed to allow Profile redirect extension to run first.
+			),
 		);
 	}
 
