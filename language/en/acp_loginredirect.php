@@ -84,4 +84,6 @@ $lang = array_merge($lang, array(
 	'REDIRECT_WELCOME_TOPIC_ID_EXPLAIN'		=> 'Enter the ID of the welcome topic that you wish to redirect all new users to.',
 
 	'SELECTED'								=> 'Selected',
+
+	'VERSION'								=> 'Version',
 ));

@@ -5,13 +5,9 @@
 <p>{{ lang('REDIRECT_LOGIN_EXPLAIN') }}</p>
 
 <form id="login_redirect" method="post" action="{U_ACTION}">
+	<span class="version_name">{{ lang('VERSION') }}{{ lang('COLON') }}</span><span class="version">{LOGIN_REDIRECT_VERSION}</span>
 
 	<fieldset>
-
-		<dl>
-			<dt><label for="version">{{ lang('VERSION') }}{{ lang('COLON') }}</label><span class="version">{LOGIN_REDIRECT_VERSION}</span></dt>
-		</dl>
-
 		<dl>
 			<dt><label for="redirect_enabled">{{ lang('REDIRECT_ENABLED') }}{{ lang('COLON') }}</label></dt>
 			<dd><label><input type="radio" class="radio" name="redirect_enabled" value="1" id="redirect_enabled"{% if REDIRECT_ENABLED %} checked="checked"{% endif %}/> {{ lang('ENABLED') }}</label>
