@@ -3,13 +3,20 @@
 *
 * @package User Login Redirect
 * @copyright (c) 2014 david63
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
 namespace david63\loginredirect\controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use phpbb\config\config;
+use phpbb\request\request;
+use phpbb\db\driver\driver_interface;
+use phpbb\template\template;
+use phpbb\user;
+use phpbb\log\log;
+use phpbb\language\language;
 use david63\loginredirect\ext;
 
 /**
@@ -46,16 +53,16 @@ class admin_controller implements admin_interface
 	*
 	* @param \phpbb\config\config				$config		Config object
 	* @param \phpbb\request\request				$request	Request object
-	* @param \phpbb\db\driver\driver_interface	$db
+	* @param \phpbb\db\driver\driver_interface	$db			Database object
 	* @param \phpbb\template\template			$template	Template object
 	* @param \phpbb\user						$user		User object
-	* @param \phpbb\log\log						$log
-	* @param phpbb\language\language			$language
+	* @param \phpbb\log\log						$log		Log object
+	* @param phpbb\language\language			$language	Language object
 	*
 	* @return \david63\loginredirect\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, \phpbb\language\language $language)
+	public function __construct(config $config, request $request, driver_interface $db, template $template, user $user, log $log, language $language)
 	{
 		$this->config	= $config;
 		$this->request	= $request;
@@ -110,6 +117,7 @@ class admin_controller implements admin_interface
 		// Set output vars for display in the template
 		$this->template->assign_vars(array(
 			'LOGIN_REDIRECT_VERSION'		=> ext::LOGIN_REDIRECT_VERSION,
+
 			'REDIRECT_ALWAYS'				=> isset($this->config['redirect_always']) ? $this->config['redirect_always'] : '',
 			'REDIRECT_ANNOUNCE'				=> isset($this->config['redirect_announce']) ? $this->config['redirect_announce'] : '',
 			'REDIRECT_ANNOUNCE_PRIORITY'	=> isset($this->config['redirect_announce_priority']) ? $this->config['redirect_announce_priority'] : '',
@@ -128,7 +136,7 @@ class admin_controller implements admin_interface
 
 			'S_REDIRECT_GROUP_OPTIONS'		=> group_select_options($this->config['redirect_group_id'], false, false),
 
-			'U_ACTION' => $this->u_action,
+			'U_ACTION' 						=> $this->u_action,
 		));
 	}
 
@@ -158,6 +166,12 @@ class admin_controller implements admin_interface
 		$this->config->set('redirect_welcome_topic_id', $this->request->variable('redirect_welcome_topic_id', ''));
 	}
 
+	/**
+	* Validate a topic
+	*
+	* @return null
+	* @access protected
+	*/
 	protected function topic_valid($topic_id, $error_message)
 	{
 		if ($topic_id <> '')

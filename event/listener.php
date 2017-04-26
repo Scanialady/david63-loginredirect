@@ -3,7 +3,7 @@
 *
 * @package User Login Redirect
 * @copyright (c) 2014 david63
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
@@ -13,6 +13,11 @@ namespace david63\loginredirect\event;
 * @ignore
 */
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use phpbb\config\config;
+use phpbb\user;
+use phpbb\request\request;
+use phpbb\db\driver\driver_interface;
+use phpbb\language\language;
 
 /**
 * Event listener
@@ -43,17 +48,17 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config 				$config
-	* @param \phpbb\user 						$user
-	* @param \phpbb\request\request 			$request
-	* @param \phpbb\db\driver\driver_interface	$db
-	* @param string 							$root_path
-	* @param string 							$php_ext
-	* @param phpbb\language\language			$language
+	* @param \phpbb\config\config 				$config		Config object
+	* @param \phpbb\user 						$user		User object
+	* @param \phpbb\request\request 			$request	Request object
+	* @param \phpbb\db\driver\driver_interface	$db			Database object
+	* @param string 							$root_path	phpBB root path
+	* @param string 							$php_ext	pgpBB file extension
+	* @param phpbb\language\language			$language	Language object
 	*
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\user $user, \phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, $root_path, $php_ext, \phpbb\language\language $language)
+	public function __construct(config $config, user $user, request $request, driver_interface $db, $root_path, $php_ext, language $language)
 	{
 		$this->config		= $config;
 		$this->user			= $user;
