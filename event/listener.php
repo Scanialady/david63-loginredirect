@@ -13,11 +13,11 @@ namespace david63\loginredirect\event;
 * @ignore
 */
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use phpbb\config\config;
-use phpbb\user;
-use phpbb\request\request;
-use phpbb\db\driver\driver_interface;
-use phpbb\language\language;
+use \phpbb\config\config;
+use \phpbb\user;
+use \phpbb\request\request;
+use \phpbb\db\driver\driver_interface;
+use \phpbb\language\language;
 
 /**
 * Event listener
@@ -42,7 +42,7 @@ class listener implements EventSubscriberInterface
 	/** @var string PHP extension */
 	protected $phpEx;
 
-	/** @var phpbb\language\language */
+	/** @var \phpbb\language\language */
 	protected $language;
 
 	/**

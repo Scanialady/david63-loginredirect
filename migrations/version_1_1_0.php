@@ -9,7 +9,7 @@
 
 namespace david63\loginredirect\migrations;
 
-use phpbb\db\migration\migration;
+use \phpbb\db\migration\migration;
 
 class version_1_1_0 extends migration
 {

@@ -10,14 +10,14 @@
 namespace david63\loginredirect\controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use phpbb\config\config;
-use phpbb\request\request;
-use phpbb\db\driver\driver_interface;
-use phpbb\template\template;
-use phpbb\user;
-use phpbb\log\log;
-use phpbb\language\language;
-use david63\loginredirect\ext;
+use \phpbb\config\config;
+use \phpbb\request\request;
+use \phpbb\db\driver\driver_interface;
+use \phpbb\template\template;
+use \phpbb\user;
+use \phpbb\log\log;
+use \phpbb\language\language;
+use \david63\loginredirect\ext;
 
 /**
 * Admin controller
@@ -42,7 +42,7 @@ class admin_controller implements admin_interface
 	/** @var \phpbb\log\log */
 	protected $log;
 
-	/** @var phpbb\language\language */
+	/** @var \phpbb\language\language */
 	protected $language;
 
 	/** @var string Custom form action */
