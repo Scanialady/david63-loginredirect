@@ -1,0 +1,2 @@
+david63 login redirect github version branch 3.2, letzte Änderung vom 05.07.2017
+wird "version": "2.1.0-RC1"
